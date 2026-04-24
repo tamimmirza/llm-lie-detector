@@ -14,5 +14,11 @@ given a question and an LLM-generated answer, it predicts whether that answer is
 factually grounded or hallucinated. The finished system is wrapped in a REST API 
 and shipped as a Docker container.
 
+## Progress
+- [x] Phase 1: Data exploration and local inference complete
+- [ ] Phase 2: Fine-tuning with LoRA
+- [ ] Phase 3: FastAPI + Docker
+- [ ] Phase 4: Documentation and publishing
+
 ## Status
 🚧 In active development
