@@ -14,14 +14,44 @@ given a question and an LLM-generated answer, it predicts whether that answer is
 factually grounded or hallucinated. The finished system is wrapped in a REST API 
 and shipped as a Docker container.
 
-## Progress
-- [x] Phase 1: Data exploration and local inference complete
-- [ ] Phase 2: Fine-tuning with LoRA
-- [ ] Phase 3: FastAPI + Docker
-- [ ] Phase 4: Documentation and publishing
-
 ## Status
 🚧 In active development
+
+## Results
+
+| Metric    | Baseline | Our Model | Improvement |
+|-----------|----------|-----------|-------------|
+| F1 Score  | 0.3595   | 0.9032    | +0.5438     |
+| Precision | 0.2738   | 0.9078    | +0.6340     |
+| Recall    | 0.5232   | 0.9033    | +0.3800     |
+| Accuracy  | —        | 90.33%    | —           |
+
+Model: Llama 3.2 3B Instruct fine-tuned with LoRA  
+Dataset: TruthfulQA + HaluEval (15,918 labeled pairs)  
+Validation set: 1,592 samples
+
+## Progress
+
+### ✅ Phase 1 — Foundations
+- Explored TruthfulQA and HaluEval datasets
+- Built unified labeled dataset (15,918 training pairs)
+- Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
+
+### ✅ Phase 2 — Fine-tuning
+- Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
+- Achieved **90% accuracy** and **F1 score of 0.90** on validation set
+- +0.54 F1 improvement over majority class baseline
+- Experiment tracked with Weights & Biases
+
+### 🔄 Phase 3 — The Product (In Progress)
+- [ ] FastAPI inference endpoint
+- [ ] Docker container
+- [ ] Demo GIF
+
+### ⬜ Phase 4 — Documentation & Publishing
+- [ ] Polish README with architecture diagram
+- [ ] Push model to HuggingFace Hub
+- [ ] LinkedIn post
 
 ## Development Notes
 
