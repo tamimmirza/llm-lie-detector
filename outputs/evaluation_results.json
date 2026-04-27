@@ -1,0 +1,21 @@
+{
+  "model": "Llama-3.2-3B-Instruct fine-tuned with LoRA",
+  "dataset": "TruthfulQA + HaluEval (15,918 training pairs)",
+  "validation_samples": 1592,
+  "fine_tuned_model": {
+    "f1": 0.9032,
+    "precision": 0.9078,
+    "recall": 0.9033,
+    "accuracy": 0.9033
+  },
+  "baseline": {
+    "f1": 0.3595,
+    "precision": 0.2738,
+    "recall": 0.5232
+  },
+  "improvement": {
+    "f1": 0.5438,
+    "precision": 0.634,
+    "recall": 0.38
+  }
+}

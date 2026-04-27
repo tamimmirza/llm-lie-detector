@@ -22,3 +22,31 @@ and shipped as a Docker container.
 
 ## Status
 🚧 In active development
+
+## Development Notes
+
+### Training Pipeline — Issues & Pivots
+
+**Initial approach:** Fine-tuned Llama 3.2 3B using `AutoModelForSequenceClassification` 
+with manual LoRA via `get_peft_model()` and the standard HuggingFace `Trainer`.
+
+**Issues encountered on Windows / RTX 4080 Laptop GPU (12GB VRAM):**
+
+1. **fp16 gradient scaling crash** — The initial training config used `fp16=True` which 
+caused a gradient unscaling error with LoRA adapters. Resolved by switching to `bf16=True` 
+which the RTX 4080 Laptop supports natively and is more stable for LLM fine-tuning.
+
+2. **Training running at 0.02 it/s** — After the fp16 fix, training appeared to start but 
+ran at near-zero speed. Root cause: the model had silently fallen back to CPU during 
+repeated kernel restarts and cell reruns. GPU showed 0.0GB allocated despite 
+`torch.cuda.is_available()` returning True.
+
+3. **Double LoRA application** — When pivoting to `SFTTrainer` from the `trl` library, 
+the old `get_peft_model()` cell was still present in the notebook. This caused 
+`SFTTrainer` to raise a `ValueError` as it detected an already-adapted PeftModel 
+when trying to apply its own LoRA config.
+
+**Resolution:** Switched to `SFTTrainer` from `trl`, which handles LoRA application 
+internally via `peft_config`, manages the training loop cleanly, and is purpose-built 
+for this exact workflow. Removed all manual LoRA cells. Training now runs at ~1.2 it/s 
+on GPU as expected.
