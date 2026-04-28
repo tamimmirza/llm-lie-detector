@@ -51,7 +51,8 @@ Validation set: 1,592 samples
 - Built FastAPI REST endpoint serving hallucination predictions over HTTP
 - Containerized with Docker — runs with a single `docker run` command
 - Automatic CPU/GPU detection for portability
-- Tested successfully inside container on CPU
+- Tested successfully inside container
+- Demo GIF recorded and embedded in README
 
 ### ⬜ Phase 4 — Documentation & Publishing (In Progress)
 - [ ] Polish README with architecture diagram
