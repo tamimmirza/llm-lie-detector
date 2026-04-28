@@ -14,6 +14,10 @@ given a question and an LLM-generated answer, it predicts whether that answer is
 factually grounded or hallucinated. The finished system is wrapped in a REST API 
 and shipped as a Docker container.
 
+## Demo
+
+![LLM Lie Detector Demo](demo.gif)
+
 ## Status
 🚧 In active development
 
@@ -43,12 +47,13 @@ Validation set: 1,592 samples
 - +0.54 F1 improvement over majority class baseline
 - Experiment tracked with Weights & Biases
 
-### 🔄 Phase 3 — The Product (In Progress)
-- [ ] FastAPI inference endpoint
-- [ ] Docker container
-- [ ] Demo GIF
+### ✅ Phase 3 — The Product
+- Built FastAPI REST endpoint serving hallucination predictions over HTTP
+- Containerized with Docker — runs with a single `docker run` command
+- Automatic CPU/GPU detection for portability
+- Tested successfully inside container on CPU
 
-### ⬜ Phase 4 — Documentation & Publishing
+### ⬜ Phase 4 — Documentation & Publishing (In Progress)
 - [ ] Polish README with architecture diagram
 - [ ] Push model to HuggingFace Hub
 - [ ] LinkedIn post
@@ -80,3 +85,12 @@ when trying to apply its own LoRA config.
 internally via `peft_config`, manages the training loop cleanly, and is purpose-built 
 for this exact workflow. Removed all manual LoRA cells. Training now runs at ~1.2 it/s 
 on GPU as expected.
+
+## Limitations
+
+- The model performs best on nuanced factual questions similar to those in 
+  TruthfulQA and HaluEval. Performance on very simple common knowledge questions 
+  (e.g. "What is the capital of France?") may be inconsistent due to underrepresentation 
+  in training data.
+- Confidence scores are currently binary (high/low) rather than continuous probabilities.
+- The system has not been tested on non-English questions.
