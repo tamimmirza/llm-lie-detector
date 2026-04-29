@@ -88,22 +88,22 @@ uvicorn api:app --reload
 ## Progress
 
 ### ✅ Phase 1 — Foundations
-- Explored TruthfulQA and HaluEval datasets
-- Built unified labeled dataset (15,918 training pairs)
-- Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
+- [x] Explored TruthfulQA and HaluEval datasets
+- [x] Built unified labeled dataset (15,918 training pairs)
+- [x] Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
 
 ### ✅ Phase 2 — Fine-tuning
-- Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
-- Achieved **90% accuracy** and **F1 score of 0.90** on validation set
-- +0.54 F1 improvement over majority class baseline
-- Experiment tracked with Weights & Biases
+- [x] Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
+- [x] Achieved **90% accuracy** and **F1 score of 0.90** on validation set
+- [x] +0.54 F1 improvement over majority class baseline
+- [x] Experiment tracked with Weights & Biases
 
 ### ✅ Phase 3 — The Product
-- Built FastAPI REST endpoint serving hallucination predictions over HTTP
-- Containerized with Docker — runs with a single `docker run` command
-- Automatic CPU/GPU detection for portability
-- Tested successfully inside container
-- Demo GIF recorded and embedded in README
+- [x] Built FastAPI REST endpoint serving hallucination predictions over HTTP
+- [x] Containerized with Docker — runs with a single `docker run` command
+- [x] Automatic CPU/GPU detection for portability
+- [x] Tested successfully inside container
+- [x] Demo GIF recorded and embedded in README
 
 ### ✅ Phase 4 — Documentation & Publishing
 - [x] Architecture diagram added to README
