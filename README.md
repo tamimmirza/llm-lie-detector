@@ -66,7 +66,7 @@ Validation set: 1,592 samples
 ## Model
 
 The fine-tuned LoRA adapter is publicly available on HuggingFace Hub:  
-👉 [darthacnologia/llama-3.2-3b-hallucination-detector](https://huggingface.co/darthacnologia/llama-3.2-3b-hallucination-detector)
+👉 [tamimmirza/llama-3.2-3b-hallucination-detector](https://huggingface.co/tamimmirza/llama-3.2-3b-hallucination-detector)
 
 ## How to Run
 
