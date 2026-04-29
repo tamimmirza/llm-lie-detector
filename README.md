@@ -146,3 +146,6 @@ on GPU as expected.
   in training data.
 - Confidence scores are currently binary (high/low) rather than continuous probabilities.
 - The system has not been tested on non-English questions.
+
+## Write-up
+[LinkedIn post](https://www.linkedin.com/posts/tamim-mirza_darthacnologiallama-32-3b-hallucination-detector-share-7455230566641065984-egZF?utm_source=share&utm_medium=member_desktop&rcm=ACoAACZX4uUBoPj3UJTQqz0Y2n5jGEtO_TTMbSs)
