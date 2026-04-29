@@ -19,7 +19,36 @@ and shipped as a Docker container.
 ![LLM Lie Detector Demo](demo.gif)
 
 ## Status
-🚧 In active development
+✅ Project Complete
+
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────┐
+│                     INPUT                                │
+│         Question + LLM-Generated Answer                  │
+└─────────────────────┬───────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────┐
+│                  FastAPI Endpoint                         │
+│                  POST /detect                            │
+└─────────────────────┬───────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────┐
+│           Llama 3.2 3B Instruct + LoRA Adapter           │
+│         Fine-tuned on TruthfulQA + HaluEval              │
+│              (15,918 labeled pairs)                      │
+└─────────────────────┬───────────────────────────────────┘
+                      │
+                      ▼
+┌─────────────────────────────────────────────────────────┐
+│                    OUTPUT                                │
+│            TRUTHFUL or HALLUCINATED                      │
+│               F1 Score: 0.90                             │
+└─────────────────────────────────────────────────────────┘
+```
 
 ## Results
 
@@ -33,6 +62,28 @@ and shipped as a Docker container.
 Model: Llama 3.2 3B Instruct fine-tuned with LoRA  
 Dataset: TruthfulQA + HaluEval (15,918 labeled pairs)  
 Validation set: 1,592 samples
+
+## Model
+
+The fine-tuned LoRA adapter is publicly available on HuggingFace Hub:  
+👉 [darthacnologia/llama-3.2-3b-hallucination-detector](https://huggingface.co/darthacnologia/llama-3.2-3b-hallucination-detector)
+
+## How to Run
+
+### Option 1 — Docker (Recommended)
+```bash
+git clone https://github.com/tamimmirza/llm-lie-detector.git
+cd llm-lie-detector
+docker run -p 8000:8000 --env-file .env tamimmirza/llm-lie-detector
+```
+Then visit `http://127.0.0.1:8000/docs`
+
+### Option 2 — Local
+```bash
+pip install -r requirements-api.txt
+cd src
+uvicorn api:app --reload
+```
 
 ## Progress
 
@@ -54,10 +105,10 @@ Validation set: 1,592 samples
 - Tested successfully inside container
 - Demo GIF recorded and embedded in README
 
-### ⬜ Phase 4 — Documentation & Publishing (In Progress)
-- [ ] Polish README with architecture diagram
-- [ ] Push model to HuggingFace Hub
-- [ ] LinkedIn post
+### ✅ Phase 4 — Documentation & Publishing
+- [x] Architecture diagram added to README
+- [x] Model pushed to HuggingFace Hub with model card
+- [x] LinkedIn post
 
 ## Development Notes
 
