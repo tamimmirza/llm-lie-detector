@@ -144,12 +144,13 @@ uvicorn api:app --reload
 - Architecture diagram added to README
 - Model pushed to HuggingFace Hub with full model card
 
-### Phase 5 -- RAG-Augmented Detection 🔄
-- [ ] Integrate retrieval pipeline using FAISS and Wikipedia
-- [ ] Continuous confidence scores from model logits
-- [ ] Evaluate on third dataset (FEVER)
-- [ ] Error analysis on false positives and negatives
-- [ ] Ablation study: vanilla detector vs RAG-augmented detector
+### Phase 5 -- RAG-Augmented Detection ✅
+- Built Wikipedia retrieval pipeline using wikipedia-api
+- Ran ablation study: System A (base) vs System B (RAG-augmented)
+- System A: F1 0.94 | System B: F1 0.61 -- RAG reduces performance by 0.33 F1
+- Identified two failure modes: irrelevant retrieval and vague hallucination
+- Error analysis documented across 16 failure cases
+- Publication-quality visualizations generated
 
 ### Phase 6 -- Extended Improvements ⬜
 - [ ] Gradio web UI for interactive demo
