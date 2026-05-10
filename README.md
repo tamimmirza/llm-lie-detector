@@ -1,6 +1,6 @@
 # LLM Lie Detector 🔍
 
-A hallucination detection pipeline for Large Language Models (LLMs), now with RAG-augmented verification.
+A hallucination detection pipeline for Large Language Models (LLMs), with a RAG-augmented verification study.
 
 ## The Problem
 
@@ -13,10 +13,9 @@ This is one of the most critical unsolved problems in AI today.
 
 This project fine-tunes a small language model to act as a hallucination detector.
 Given a question and an LLM-generated answer, it predicts whether that answer is
-factually grounded or hallucinated. The system is being extended with a RAG-augmented
-verification pipeline that retrieves factual context at inference time, grounding
-detection in evidence rather than fine-tuning alone. The finished system is wrapped
-in a REST API and shipped as a Docker container.
+factually grounded or hallucinated. The system is wrapped in a REST API and shipped
+as a Docker container. A RAG-augmented verification pipeline was built and evaluated
+as part of Phase 5 -- revealing that naive retrieval actively hurts detection performance.
 
 ## Demo
 
@@ -24,11 +23,11 @@ in a REST API and shipped as a Docker container.
 
 ## Status
 
-🔄 Active development -- Phase 5 RAG integration in progress
+✅ Project Complete -- IEEE technical report available in `docs/`
 
 ## Architecture
 
-### Current (v1.0)
+### Base System (v1.0)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -53,11 +52,11 @@ in a REST API and shipped as a Docker container.
 ┌─────────────────────────────────────────────────────────┐
 │                       OUTPUT                             │
 │            TRUTHFUL or HALLUCINATED                      │
-│                   F1 Score: 0.90                         │
+│                   F1 Score: 0.92                         │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### Planned (v2.0) -- RAG-Augmented
+### RAG-Augmented System (Phase 5 Study)
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -78,22 +77,38 @@ in a REST API and shipped as a Docker container.
                        ▼
 ┌─────────────────────────────────────────────────────────┐
 │                       OUTPUT                             │
-│      TRUTHFUL or HALLUCINATED + Confidence Score         │
+│            TRUTHFUL or HALLUCINATED                      │
+│               F1 Score: 0.72 (RAG hurts)                 │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ## Results
 
+### Base Detector (System A)
+
 | Metric    | Baseline | Our Model | Improvement |
 |-----------|----------|-----------|-------------|
-| F1 Score  | 0.3595   | 0.9032    | +0.5438     |
-| Precision | 0.2738   | 0.9078    | +0.6340     |
-| Recall    | 0.5232   | 0.9033    | +0.3800     |
-| Accuracy  | --       | 90.33%    | --          |
+| F1 Score  | 0.3595   | 0.9234    | +0.5639     |
+| Precision | 0.2738   | 0.9236    | +0.6498     |
+| Recall    | 0.5232   | 0.9234    | +0.4002     |
+| Accuracy  | --       | 92.34%    | --          |
 
 Model: Llama 3.2 3B Instruct fine-tuned with LoRA
 Dataset: TruthfulQA + HaluEval (15,918 labeled pairs)
 Validation set: 1,592 samples
+
+### RAG Ablation Study (Phase 5)
+
+| Metric    | System A (Base) | System B (RAG) | Delta    |
+|-----------|-----------------|----------------|----------|
+| F1 Score  | 0.9234          | 0.7236         | -0.1998  |
+| Precision | 0.9236          | 0.8046         | -0.1190  |
+| Recall    | 0.9234          | 0.7356         | -0.1878  |
+| Accuracy  | 92.34%          | 73.56%         | -18.78%  |
+
+Key finding: RAG reduces F1 by 0.20 points. For every case where retrieval
+helped, it hurt in 8 others (341 vs 42 cases). Naive Wikipedia retrieval
+actively hurts hallucination detection.
 
 ## Model
 
@@ -129,8 +144,8 @@ uvicorn api:app --reload
 
 ### Phase 2 -- Fine-tuning ✅
 - Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
-- Achieved **90% accuracy** and **F1 score of 0.90** on validation set
-- +0.54 F1 improvement over majority class baseline
+- Achieved **92.34% accuracy** and **F1 score of 0.92** on full validation set
+- +0.56 F1 improvement over majority class baseline
 - Experiment tracked with Weights & Biases
 
 ### Phase 3 -- The Product ✅
@@ -143,18 +158,38 @@ uvicorn api:app --reload
 ### Phase 4 -- Documentation and Publishing ✅
 - Architecture diagram added to README
 - Model pushed to HuggingFace Hub with full model card
+- Technical report available in `docs/`
 
-### Phase 5 -- RAG-Augmented Detection ✅
+### Phase 5 -- RAG-Augmented Detection Study ✅
 - Built Wikipedia retrieval pipeline using wikipedia-api
-- Ran ablation study: System A (base) vs System B (RAG-augmented)
-- System A: F1 0.94 | System B: F1 0.61 -- RAG reduces performance by 0.33 F1
+- Ran full ablation study on 1,592 samples: System A vs System B
+- Key finding: RAG reduces F1 by 0.20 -- naive retrieval hurts detection
 - Identified two failure modes: irrelevant retrieval and vague hallucination
-- Error analysis documented across 16 failure cases
-- Publication-quality visualizations generated
+- Error analysis: 341 cases where RAG hurt vs 42 where it helped (8:1 ratio)
+- Publication-quality visualizations generated and saved to outputs/
 
 ### Phase 6 -- Extended Improvements ⬜
 - [ ] Gradio web UI for interactive demo
 - [ ] Multi-label output: TRUTHFUL / HALLUCINATED / UNCERTAIN
+
+## Key Findings
+
+**Fine-tuned hallucination detection works well.** Llama 3.2 3B fine-tuned
+with LoRA on 15,918 labeled pairs achieves 92% accuracy with 0 unparseable
+predictions out of 1,592 validation samples.
+
+**Naive RAG hurts hallucination detection.** Adding Wikipedia retrieval
+reduces F1 from 0.92 to 0.72. Two failure modes identified:
+
+1. Irrelevant retrieval -- topically adjacent but factually unrelated context
+   causes the model to default to TRUTHFUL in absence of contradiction.
+2. Vague hallucinations -- relevant context retrieved but the hallucinated
+   answer is vague enough that no explicit contradiction appears in the summary.
+
+**Implication for the field.** Retrieval quality and prompt design are critical
+for RAG-augmented verification. Semantic retrieval precision -- returning the
+specific passage containing the contradicting fact -- is a fundamentally harder
+problem than standard RAG applications.
 
 ## Development Notes
 
@@ -165,34 +200,23 @@ with manual LoRA via `get_peft_model()` and the standard HuggingFace `Trainer`.
 
 **Issues encountered on Windows / RTX 4080 Laptop GPU (12GB VRAM):**
 
-1. **fp16 gradient scaling crash** -- The initial training config used `fp16=True` which
-caused a gradient unscaling error with LoRA adapters. Resolved by switching to `bf16=True`
-which the RTX 4080 Laptop supports natively and is more stable for LLM fine-tuning.
+1. **fp16 gradient scaling crash** -- Resolved by switching to `bf16=True` which
+the RTX 4080 Laptop supports natively and is more stable for LLM fine-tuning.
 
-2. **Training running at 0.02 it/s** -- After the fp16 fix, training appeared to start but
-ran at near-zero speed. Root cause: the model had silently fallen back to CPU during
-repeated kernel restarts and cell reruns. GPU showed 0.0GB allocated despite
-`torch.cuda.is_available()` returning True.
+2. **Training running at 0.02 it/s** -- Root cause: model silently fell back to CPU.
+Always verify VRAM allocation before training with `torch.cuda.memory_allocated()`.
 
-3. **Double LoRA application** -- When pivoting to `SFTTrainer` from the `trl` library,
-the old `get_peft_model()` cell was still present in the notebook. This caused
-`SFTTrainer` to raise a `ValueError` as it detected an already-adapted PeftModel
-when trying to apply its own LoRA config.
-
-**Resolution:** Switched to `SFTTrainer` from `trl`, which handles LoRA application
-internally via `peft_config`, manages the training loop cleanly, and is purpose-built
-for this exact workflow. Removed all manual LoRA cells. Training now runs at approximately
+3. **Double LoRA application** -- Resolved by switching to `SFTTrainer` from `trl`
+which handles LoRA internally via `peft_config`. Training runs at approximately
 1.2 it/s on GPU as expected.
 
 ## Limitations
 
-- The model performs best on nuanced factual questions similar to those in TruthfulQA
-  and HaluEval. Performance on simple common knowledge questions may be inconsistent
-  due to underrepresentation in training data. This is the primary motivation for the
-  RAG-augmented pipeline in Phase 5.
-- Confidence scores are currently binary (high/low) rather than continuous probabilities.
-  Continuous scoring is planned for v2.0.
-- The system has not been tested on non-English questions.
+- Performs best on nuanced factual questions similar to TruthfulQA and HaluEval.
+  Simple common knowledge questions may show inconsistent results.
+- Confidence scores are binary (high/low) rather than continuous probabilities.
+- English only -- not tested on non-English inputs.
+- Docker container runs on CPU on Windows without NVIDIA Container Toolkit.
 
 ## Acknowledgements
 
