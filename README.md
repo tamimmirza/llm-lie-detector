@@ -168,9 +168,13 @@ uvicorn api:app --reload
 - Error analysis: 341 cases where RAG hurt vs 42 where it helped (8:1 ratio)
 - Publication-quality visualizations generated and saved to outputs/
 
-### Phase 6 -- Extended Improvements ⬜
+### Phase 6 -- Extended Improvements 🔄
+- [ ] Confidence calibration -- ROC curves, calibration plots, probability scores
+- [ ] Inference performance metrics -- latency, VRAM, throughput benchmarks
+- [ ] Benchmark comparison -- DeBERTa baseline and GPT-4 judge
 - [ ] Gradio web UI for interactive demo
 - [ ] Multi-label output: TRUTHFUL / HALLUCINATED / UNCERTAIN
+- [ ] IEEE technical report
 
 ## Key Findings
 
