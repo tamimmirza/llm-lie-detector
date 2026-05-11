@@ -1,0 +1,10 @@
+Metric,Value
+Model Size (Parameters),3.2 Billion (Llama 3.2 3B)
+Adapter Size (LoRA),4.59M parameters (0.14% of base)
+VRAM Required (Minimum),8 GB VRAM
+VRAM Used (Inference),6.45 GB
+GPU Inference Latency (Mean),210.6 ms
+GPU Inference Latency (Median),209.1 ms
+GPU Throughput,4.75 samples/second
+Latency Std Dev,5.0 ms
+Tested Hardware,NVIDIA RTX 4080 Laptop GPU (12GB VRAM)

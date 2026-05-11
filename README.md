@@ -169,8 +169,8 @@ uvicorn api:app --reload
 - Publication-quality visualizations generated and saved to outputs/
 
 ### Phase 6 -- Extended Improvements 🔄
-- [ ] Confidence calibration -- ROC curves, calibration plots, probability scores
-- [ ] Inference performance metrics -- latency, VRAM, throughput benchmarks
+- [x] Confidence calibration -- ROC AUC 0.9637, Brier Score 0.1088
+- [x] Inference performance metrics -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
 - [ ] Benchmark comparison -- DeBERTa baseline and GPT-4 judge
 - [ ] Gradio web UI for interactive demo
 - [ ] Multi-label output: TRUTHFUL / HALLUCINATED / UNCERTAIN
