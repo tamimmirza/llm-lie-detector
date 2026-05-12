@@ -21,10 +21,6 @@ as part of Phase 5 -- revealing that naive retrieval actively hurts detection pe
 
 ![LLM Lie Detector Demo](demo.gif)
 
-## Status
-
-✅ Project Complete -- IEEE technical report available in `docs/`
-
 ## Architecture
 
 ### Base System (v1.0)
@@ -138,40 +134,39 @@ uvicorn api:app --reload
 ## Progress
 
 ### Phase 1 -- Foundations ✅
-- Explored TruthfulQA and HaluEval datasets
-- Built unified labeled dataset (15,918 training pairs)
-- Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
+- [x] Explored TruthfulQA and HaluEval datasets
+- [x] Built unified labeled dataset (15,918 training pairs)
+- [x] Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
 
 ### Phase 2 -- Fine-tuning ✅
-- Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
-- Achieved **92.34% accuracy** and **F1 score of 0.92** on full validation set
-- +0.56 F1 improvement over majority class baseline
-- Experiment tracked with Weights & Biases
+- [x] Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
+- [x] Achieved **92.34% accuracy** and **F1 score of 0.92** on full validation set
+- [x] +0.56 F1 improvement over majority class baseline
+- [x] Experiment tracked with Weights & Biases
 
 ### Phase 3 -- The Product ✅
-- Built FastAPI REST endpoint serving hallucination predictions over HTTP
-- Containerized with Docker -- runs with a single `docker run` command
-- Automatic CPU/GPU detection for portability
-- Tested successfully inside container
-- Demo GIF recorded and embedded in README
+- [x] Built FastAPI REST endpoint serving hallucination predictions over HTTP
+- [x] Containerized with Docker -- runs with a single `docker run` command
+- [x] Automatic CPU/GPU detection for portability
+- [x] Tested successfully inside container
+- [x] Demo GIF recorded and embedded in README
 
-### Phase 4 -- Documentation and Publishing ✅
-- Architecture diagram added to README
-- Model pushed to HuggingFace Hub with full model card
-- Technical report available in `docs/`
+### Phase 4 -- Publishing ✅
+- [x] Architecture diagram added to README
+- [x] Model pushed to HuggingFace Hub with full model card
 
 ### Phase 5 -- RAG-Augmented Detection Study ✅
-- Built Wikipedia retrieval pipeline using wikipedia-api
-- Ran full ablation study on 1,592 samples: System A vs System B
-- Key finding: RAG reduces F1 by 0.20 -- naive retrieval hurts detection
-- Identified two failure modes: irrelevant retrieval and vague hallucination
-- Error analysis: 341 cases where RAG hurt vs 42 where it helped (8:1 ratio)
-- Publication-quality visualizations generated and saved to outputs/
+- [x] Built Wikipedia retrieval pipeline using wikipedia-api
+- [x] Ran full ablation study on 1,592 samples: System A vs System B
+- [x] Key finding: RAG reduces F1 by 0.20 -- naive retrieval hurts detection
+- [x] Identified two failure modes: irrelevant retrieval and vague hallucination
+- [x] Error analysis: 341 cases where RAG hurt vs 42 where it helped (8:1 ratio)
+- [x] Publication-quality visualizations generated and saved to outputs/
 
 ### Phase 6 -- Extended Improvements 🔄
 - [x] Confidence calibration -- ROC AUC 0.9637, Brier Score 0.1088
 - [x] Inference performance metrics -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
-- [ ] Benchmark comparison -- DeBERTa baseline and GPT-4 judge
+- [x] Benchmark comparison -- DeBERTa baseline and GPT-4 judge
 - [ ] Gradio web UI for interactive demo
 - [ ] Multi-label output: TRUTHFUL / HALLUCINATED / UNCERTAIN
 - [ ] IEEE technical report
