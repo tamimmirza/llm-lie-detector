@@ -165,10 +165,13 @@ uvicorn api:app --reload
 
 ### Phase 6 -- Extended Improvements 🔄
 - [x] Confidence calibration -- ROC AUC 0.9637, Brier Score 0.1088
-- [x] Inference performance metrics -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
-- [x] Benchmark comparison -- DeBERTa baseline and GPT-4 judge
-- [ ] Gradio web UI for interactive demo
-- [ ] Multi-label output: TRUTHFUL / HALLUCINATED / UNCERTAIN
+- [x] Inference performance -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
+- [x] Benchmark comparison -- fine-tuned 0.915 vs few-shot 0.686 vs baselines
+- [x] Three-class output -- 93.5% accuracy with 23.5% abstention
+- [ ] Out-of-domain benchmark (SelfCheckGPT/WikiBio)
+- [ ] ECE and selective accuracy
+- [ ] Adversarial perturbation test set
+- [ ] Gradio web UI (optional, low priority)
 - [ ] IEEE technical report
 
 ## Key Findings

@@ -1,4 +1,4 @@
 System,F1,Precision,Recall,Accuracy
-Fine-tuned Llama (Ours),0.9149,0.9153,0.915,0.915
+Fine-tuned Llama (Ours),0.9199,0.9205,0.92,0.92
 Zero-shot Llama,0.3114,0.2304,0.48,0.48
 DeBERTa-v3 (NLI),0.3114,0.2304,0.48,0.48
