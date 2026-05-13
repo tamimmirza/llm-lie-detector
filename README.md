@@ -169,7 +169,7 @@ uvicorn api:app --reload
 - [x] Benchmark comparison -- fine-tuned 0.915 vs few-shot 0.686 vs baselines
 - [x] Three-class output -- 93.5% accuracy with 23.5% abstention
 - [x] Out-of-domain benchmark (SelfCheckGPT/WikiBio)
-- [ ] ECE and selective accuracy
+- [x] ECE and selective accuracy
 - [ ] Adversarial perturbation test set
 - [ ] Gradio web UI (optional, low priority)
 - [ ] IEEE technical report
