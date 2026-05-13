@@ -168,7 +168,7 @@ uvicorn api:app --reload
 - [x] Inference performance -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
 - [x] Benchmark comparison -- fine-tuned 0.915 vs few-shot 0.686 vs baselines
 - [x] Three-class output -- 93.5% accuracy with 23.5% abstention
-- [ ] Out-of-domain benchmark (SelfCheckGPT/WikiBio)
+- [x] Out-of-domain benchmark (SelfCheckGPT/WikiBio)
 - [ ] ECE and selective accuracy
 - [ ] Adversarial perturbation test set
 - [ ] Gradio web UI (optional, low priority)
