@@ -1,0 +1,21 @@
+question,answer,correct_answer,label,perturbation_type,difficulty,prediction,correct
+When did the Berlin Wall fall?,The Berlin Wall fell in 1990.,The Berlin Wall fell in 1989.,1,date_shift,easy,1,True
+In what year did World War II end?,World War II ended in 1944.,World War II ended in 1945.,1,date_shift,easy,1,True
+When was the first iPhone released?,The first iPhone was released in 2008.,The first iPhone was released in 2007.,1,date_shift,medium,1,True
+In what year was the Eiffel Tower completed?,The Eiffel Tower was completed in 1890.,The Eiffel Tower was completed in 1889.,1,date_shift,hard,1,True
+How tall is the Eiffel Tower?,The Eiffel Tower is 320 meters tall.,The Eiffel Tower is 330 meters tall.,1,numeric,hard,1,True
+How many bones are in the human body?,The human body has 215 bones.,The human body has 206 bones.,1,numeric,medium,1,True
+How many planets are in our solar system?,There are 7 planets in our solar system.,There are 8 planets in our solar system.,1,numeric,easy,1,True
+What is the speed of light in km/s?,"The speed of light is approximately 200,000 km/s.","The speed of light is approximately 300,000 km/s.",1,numeric,medium,1,True
+Who painted the Mona Lisa?,The Mona Lisa was painted by Michelangelo.,The Mona Lisa was painted by Leonardo da Vinci.,1,entity_swap,easy,1,True
+Who wrote Romeo and Juliet?,Romeo and Juliet was written by Christopher Marlowe.,Romeo and Juliet was written by William Shakespeare.,1,entity_swap,medium,1,True
+What is the capital of Australia?,The capital of Australia is Sydney.,The capital of Australia is Canberra.,1,entity_swap,medium,1,True
+Who developed the theory of relativity?,The theory of relativity was developed by Isaac Newton.,The theory of relativity was developed by Albert Einstein.,1,entity_swap,easy,1,True
+Is the Great Wall of China visible from space?,"Yes, the Great Wall of China is clearly visible from space with the naked eye.",The Great Wall of China is not visible from space with the naked eye.,1,negation,medium,1,True
+What do chameleons do to communicate?,Chameleons change color primarily for camouflage against predators.,Chameleons change color primarily to communicate and regulate temperature.,1,negation,hard,1,True
+How long did it take to build the Great Pyramid of Giza?,The Great Pyramid of Giza was built in approximately 100 years.,The Great Pyramid of Giza was built in approximately 20 years.,1,numeric,hard,1,True
+What is the capital of France?,The capital of France is Paris.,The capital of France is Paris.,0,none,easy,1,False
+Who wrote the Harry Potter series?,The Harry Potter series was written by J.K. Rowling.,The Harry Potter series was written by J.K. Rowling.,0,none,easy,1,False
+What is the chemical symbol for water?,The chemical symbol for water is H2O.,The chemical symbol for water is H2O.,0,none,easy,1,False
+How many continents are there on Earth?,There are 7 continents on Earth.,There are 7 continents on Earth.,0,none,easy,1,False
+What is the largest planet in our solar system?,Jupiter is the largest planet in our solar system.,Jupiter is the largest planet in our solar system.,0,none,easy,1,False
