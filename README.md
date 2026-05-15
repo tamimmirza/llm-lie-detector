@@ -1,115 +1,39 @@
 # LLM Lie Detector 🔍
 
-A hallucination detection pipeline for Large Language Models (LLMs), with a RAG-augmented verification study.
+A hallucination detection system for Large Language Models (LLMs), built with a fine-tuned Llama 3.2 3B and deployed as a production-ready REST API.
 
-## The Problem
+## What It Does
 
-LLMs confidently produce incorrect information, a phenomenon known as hallucination.
-A model might tell you fortune cookies originated in China, or that the Declaration of
-Independence was signed on July 4th. Both wrong, both stated with complete confidence.
-This is one of the most critical unsolved problems in AI today.
-
-## The Solution
-
-This project fine-tunes a small language model to act as a hallucination detector.
-Given a question and an LLM-generated answer, it predicts whether that answer is
-factually grounded or hallucinated. The system is wrapped in a REST API and shipped
-as a Docker container. A RAG-augmented verification pipeline was built and evaluated
-as part of Phase 5 -- revealing that naive retrieval actively hurts detection performance.
+Given a question and an LLM-generated answer, the system predicts whether the answer is factually grounded or hallucinated. It returns a verdict, a confidence score, and supports a three-class output mode (TRUTHFUL / UNCERTAIN / HALLUCINATED) for production deployment.
 
 ## Demo
 
 ![LLM Lie Detector Demo](demo.gif)
 
-## Architecture
+## Key Numbers
 
-### Base System (v1.0)
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                        INPUT                             │
-│            Question + LLM-Generated Answer               │
-└─────────────────────────┬───────────────────────────────┘
-                          │
-                          ▼
-          ┌───────────────────────────────┐
-          │       FastAPI Endpoint         │
-          │         POST /detect           │
-          └───────────────┬───────────────┘
-                          │
-                          ▼
-          ┌───────────────────────────────┐
-          │  Llama 3.2 3B + LoRA Adapter  │
-          │ Fine-tuned on TruthfulQA      │
-          │ + HaluEval (15,918 pairs)     │
-          └───────────────┬───────────────┘
-                          │
-                          ▼
-┌─────────────────────────────────────────────────────────┐
-│                       OUTPUT                             │
-│            TRUTHFUL or HALLUCINATED                      │
-│                   F1 Score: 0.92                         │
-└─────────────────────────────────────────────────────────┘
-```
-
-### RAG-Augmented System (Phase 5 Study)
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                        INPUT                             │
-│            Question + LLM-Generated Answer               │
-└──────────────────────┬──────────────────────────────────┘
-                       │
-         ┌─────────────┴─────────────┐
-         │                           │
-         ▼                           ▼
-┌─────────────────┐      ┌───────────────────────┐
-│  RAG Retriever  │      │  Fine-tuned Detector   │
-│ Wikipedia/FAISS │      │  Llama 3.2 3B + LoRA   │
-└────────┬────────┘      └───────────┬────────────┘
-         │                           │
-         └─────────────┬─────────────┘
-                       │
-                       ▼
-┌─────────────────────────────────────────────────────────┐
-│                       OUTPUT                             │
-│            TRUTHFUL or HALLUCINATED                      │
-│               F1 Score: 0.72 (RAG hurts)                 │
-└─────────────────────────────────────────────────────────┘
-```
-
-## Results
-
-### Base Detector (System A)
-
-| Metric    | Baseline | Our Model | Improvement |
-|-----------|----------|-----------|-------------|
-| F1 Score  | 0.3595   | 0.9234    | +0.5639     |
-| Precision | 0.2738   | 0.9236    | +0.6498     |
-| Recall    | 0.5232   | 0.9234    | +0.4002     |
-| Accuracy  | --       | 92.34%    | --          |
-
-Model: Llama 3.2 3B Instruct fine-tuned with LoRA
-Dataset: TruthfulQA + HaluEval (15,918 labeled pairs)
-Validation set: 1,592 samples
-
-### RAG Ablation Study (Phase 5)
-
-| Metric    | System A (Base) | System B (RAG) | Delta    |
-|-----------|-----------------|----------------|----------|
-| F1 Score  | 0.9234          | 0.7236         | -0.1998  |
-| Precision | 0.9236          | 0.8046         | -0.1190  |
-| Recall    | 0.9234          | 0.7356         | -0.1878  |
-| Accuracy  | 92.34%          | 73.56%         | -18.78%  |
-
-Key finding: RAG reduces F1 by 0.20 points. For every case where retrieval
-helped, it hurt in 8 others (341 vs 42 cases). Naive Wikipedia retrieval
-actively hurts hallucination detection.
+| Metric    | Score  |
+|-----------|--------|
+| F1 Score  | 0.9234 |
+| Accuracy  | 92.34% |
+| ROC AUC   | 0.9637 |
+| Latency   | 210ms  |
+| Throughput| 4.75 samples/sec |
+| VRAM      | 6.45 GB |
 
 ## Model
 
-The fine-tuned LoRA adapter is publicly available on HuggingFace Hub:
+Fine-tuned LoRA adapter available on HuggingFace Hub:
 👉 [tamimmirza/llama-3.2-3b-hallucination-detector](https://huggingface.co/tamimmirza/llama-3.2-3b-hallucination-detector)
+
+## Stack
+
+- **Model:** Meta Llama 3.2 3B Instruct + LoRA (PEFT)
+- **Training:** SFTTrainer (trl), bfloat16, Weights & Biases
+- **Data:** TruthfulQA + HaluEval (15,918 labeled pairs)
+- **API:** FastAPI + uvicorn
+- **Deployment:** Docker
+- **Hardware:** NVIDIA RTX 4080 Laptop GPU (12GB VRAM)
 
 ## How to Run
 
@@ -131,96 +55,79 @@ cd src
 uvicorn api:app --reload
 ```
 
-## Progress
+## API Usage
 
-### Phase 1 -- Foundations ✅
-- [x] Explored TruthfulQA and HaluEval datasets
-- [x] Built unified labeled dataset (15,918 training pairs)
-- [x] Ran local inference with Llama 3.2 3B, observed hallucinations firsthand
+```bash
+curl -X POST http://127.0.0.1:8000/detect \
+  -H "Content-Type: application/json" \
+  -d '{"question": "Where did fortune cookies originate?",
+       "answer": "Fortune cookies originated in China."}'
+```
 
-### Phase 2 -- Fine-tuning ✅
-- [x] Fine-tuned Llama 3.2 3B with LoRA (trained only 0.14% of parameters)
-- [x] Achieved **92.34% accuracy** and **F1 score of 0.92** on full validation set
-- [x] +0.56 F1 improvement over majority class baseline
-- [x] Experiment tracked with Weights & Biases
+Response:
 
-### Phase 3 -- The Product ✅
-- [x] Built FastAPI REST endpoint serving hallucination predictions over HTTP
-- [x] Containerized with Docker -- runs with a single `docker run` command
-- [x] Automatic CPU/GPU detection for portability
-- [x] Tested successfully inside container
-- [x] Demo GIF recorded and embedded in README
+```json
+{
+  "question": "Where did fortune cookies originate?",
+  "answer": "Fortune cookies originated in China.",
+  "verdict": "HALLUCINATED",
+  "confidence": "high"
+}
+```
 
-### Phase 4 -- Publishing ✅
-- [x] Architecture diagram added to README
-- [x] Model pushed to HuggingFace Hub with full model card
+## Three-Class Output
 
-### Phase 5 -- RAG-Augmented Detection Study ✅
-- [x] Built Wikipedia retrieval pipeline using wikipedia-api
-- [x] Ran full ablation study on 1,592 samples: System A vs System B
-- [x] Key finding: RAG reduces F1 by 0.20 -- naive retrieval hurts detection
-- [x] Identified two failure modes: irrelevant retrieval and vague hallucination
-- [x] Error analysis: 341 cases where RAG hurt vs 42 where it helped (8:1 ratio)
-- [x] Publication-quality visualizations generated and saved to outputs/
+The system supports a confidence-aware three-class mode for production deployment:
 
-### Phase 6 -- Extended Improvements 🔄
-- [x] Confidence calibration -- ROC AUC 0.9637, Brier Score 0.1088
-- [x] Inference performance -- 210ms latency, 4.75 samples/sec, 6.45GB VRAM
-- [x] Benchmark comparison -- fine-tuned 0.915 vs few-shot 0.686 vs baselines
-- [x] Three-class output -- 93.5% accuracy with 23.5% abstention
-- [x] Out-of-domain benchmark (SelfCheckGPT/WikiBio)
-- [x] ECE and selective accuracy
-- [ ] Adversarial perturbation test set
-- [ ] Gradio web UI (optional, low priority)
-- [ ] IEEE technical report
+| Zone | Confidence | Action |
+|------|-----------|--------|
+| High HALLUCINATED | > 0.85 | Auto-flag |
+| UNCERTAIN | 0.15 - 0.85 | Human review |
+| High TRUTHFUL | < 0.15 | Auto-pass |
 
-## Key Findings
+Accuracy on confident predictions: **93.5%** with 23.5% abstention rate.
 
-**Fine-tuned hallucination detection works well.** Llama 3.2 3B fine-tuned
-with LoRA on 15,918 labeled pairs achieves 92% accuracy with 0 unparseable
-predictions out of 1,592 validation samples.
+## Hardware Requirements
 
-**Naive RAG hurts hallucination detection.** Adding Wikipedia retrieval
-reduces F1 from 0.92 to 0.72. Two failure modes identified:
+| Component | Requirement |
+|-----------|-------------|
+| VRAM (minimum) | 8 GB |
+| VRAM (used) | 6.45 GB |
+| GPU inference latency | ~210ms |
+| CPU inference | Supported (slower) |
 
-1. Irrelevant retrieval -- topically adjacent but factually unrelated context
-   causes the model to default to TRUTHFUL in absence of contradiction.
-2. Vague hallucinations -- relevant context retrieved but the hallucinated
-   answer is vague enough that no explicit contradiction appears in the summary.
+## Reproducibility
 
-**Implication for the field.** Retrieval quality and prompt design are critical
-for RAG-augmented verification. Semantic retrieval precision -- returning the
-specific passage containing the contradicting fact -- is a fundamentally harder
-problem than standard RAG applications.
+```bash
+# Install dependencies
+pip install -r requirements-api.txt
 
-## Development Notes
+# Set environment variables
+cp .env.example .env  # Add your HF_TOKEN
 
-### Training Pipeline -- Issues and Resolutions
+# Run locally
+cd src && uvicorn api:app --reload
+```
 
-**Initial approach:** Fine-tuned Llama 3.2 3B using `AutoModelForSequenceClassification`
-with manual LoRA via `get_peft_model()` and the standard HuggingFace `Trainer`.
+All training notebooks are available in `notebooks/`. The fine-tuned adapter
+is publicly available on HuggingFace Hub and can be loaded directly.
 
-**Issues encountered on Windows / RTX 4080 Laptop GPU (12GB VRAM):**
+## Training Notes
 
-1. **fp16 gradient scaling crash** -- Resolved by switching to `bf16=True` which
-the RTX 4080 Laptop supports natively and is more stable for LLM fine-tuning.
+Fine-tuning used LoRA (r=16, alpha=32) on 14,326 training samples with
+SFTTrainer from the trl library. Training completed in approximately 54 minutes
+on a single RTX 4080 Laptop GPU using bfloat16 precision.
 
-2. **Training running at 0.02 it/s** -- Root cause: model silently fell back to CPU.
-Always verify VRAM allocation before training with `torch.cuda.memory_allocated()`.
+Key issue resolved during development: the standard HuggingFace Trainer had
+compatibility issues with LoRA adapters in this library stack. SFTTrainer
+handles LoRA internally and resolved all training instability.
 
-3. **Double LoRA application** -- Resolved by switching to `SFTTrainer` from `trl`
-which handles LoRA internally via `peft_config`. Training runs at approximately
-1.2 it/s on GPU as expected.
+## Project Status
 
-## Limitations
-
-- Performs best on nuanced factual questions similar to TruthfulQA and HaluEval.
-  Simple common knowledge questions may show inconsistent results.
-- Confidence scores are binary (high/low) rather than continuous probabilities.
-- English only -- not tested on non-English inputs.
-- Docker container runs on CPU on Windows without NVIDIA Container Toolkit.
+Active development. This project is part of ongoing research.
+Please cite appropriately if building on this work.
 
 ## Acknowledgements
 
-Development was conducted with assistance from Claude (Anthropic) for guidance,
-debugging, and code review.
+Development was conducted with assistance from Claude (Anthropic) for
+guidance, debugging, and code review.
