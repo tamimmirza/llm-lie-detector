@@ -1,0 +1,32 @@
+{
+  "perfect": {
+    "f1": 0.8807,
+    "precision": 0.8864,
+    "recall": 0.88,
+    "accuracy": 0.88
+  },
+  "partial": {
+    "f1": 0.9003,
+    "precision": 0.9013,
+    "recall": 0.9,
+    "accuracy": 0.9
+  },
+  "weak": {
+    "f1": 0.7141,
+    "precision": 0.7433,
+    "recall": 0.7133,
+    "accuracy": 0.7133
+  },
+  "irrelevant": {
+    "f1": 0.7375,
+    "precision": 0.8022,
+    "recall": 0.74,
+    "accuracy": 0.74
+  },
+  "no_retrieval": {
+    "f1": 0.96,
+    "precision": 0.96,
+    "recall": 0.96,
+    "accuracy": 0.96
+  }
+}
