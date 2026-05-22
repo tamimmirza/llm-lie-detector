@@ -1,0 +1,32 @@
+{
+  "1_chunk": {
+    "f1": 0.6571,
+    "precision": 0.7548,
+    "recall": 0.6667,
+    "accuracy": 0.6667
+  },
+  "3_chunk": {
+    "f1": 0.5211,
+    "precision": 0.7883,
+    "recall": 0.5733,
+    "accuracy": 0.5733
+  },
+  "5_chunk": {
+    "f1": 0.2769,
+    "precision": 0.7588,
+    "recall": 0.4333,
+    "accuracy": 0.4333
+  },
+  "10_chunk": {
+    "f1": 0.4362,
+    "precision": 0.4267,
+    "recall": 0.4667,
+    "accuracy": 0.4667
+  },
+  "no_retrieval": {
+    "f1": 0.9534,
+    "precision": 0.9535,
+    "recall": 0.9533,
+    "accuracy": 0.9533
+  }
+}

@@ -1,26 +1,26 @@
 {
   "subtle_contradiction": {
-    "f1": 0.7614,
-    "precision": 0.7801,
-    "recall": 0.76,
-    "accuracy": 0.76
+    "f1": 0.7284,
+    "precision": 0.738,
+    "recall": 0.7267,
+    "accuracy": 0.7267
   },
   "direct_contradiction": {
-    "f1": 0.6286,
-    "precision": 0.6883,
-    "recall": 0.6667,
-    "accuracy": 0.6667
+    "f1": 0.6137,
+    "precision": 0.6681,
+    "recall": 0.6533,
+    "accuracy": 0.6533
   },
   "stale_context": {
-    "f1": 0.6691,
-    "precision": 0.7813,
-    "recall": 0.68,
-    "accuracy": 0.68
+    "f1": 0.6768,
+    "precision": 0.7845,
+    "recall": 0.6867,
+    "accuracy": 0.6867
   },
   "no_retrieval": {
-    "f1": 0.9468,
-    "precision": 0.9472,
-    "recall": 0.9467,
-    "accuracy": 0.9467
+    "f1": 0.9534,
+    "precision": 0.9535,
+    "recall": 0.9533,
+    "accuracy": 0.9533
   }
 }
