@@ -1,0 +1,32 @@
+{
+  "correct_first": {
+    "f1": 0.7115,
+    "precision": 0.7657,
+    "recall": 0.7133,
+    "accuracy": 0.7133
+  },
+  "distractor_first": {
+    "f1": 0.6475,
+    "precision": 0.761,
+    "recall": 0.66,
+    "accuracy": 0.66
+  },
+  "contradiction_last": {
+    "f1": 0.7072,
+    "precision": 0.7388,
+    "recall": 0.7067,
+    "accuracy": 0.7067
+  },
+  "contradiction_first": {
+    "f1": 0.6825,
+    "precision": 0.7498,
+    "recall": 0.6867,
+    "accuracy": 0.6867
+  },
+  "no_retrieval": {
+    "f1": 0.9467,
+    "precision": 0.9467,
+    "recall": 0.9467,
+    "accuracy": 0.9467
+  }
+}

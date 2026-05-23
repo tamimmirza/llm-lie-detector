@@ -1,32 +1,32 @@
 {
   "perfect": {
-    "f1": 0.9138,
-    "precision": 0.9183,
-    "recall": 0.9133,
-    "accuracy": 0.9133
+    "f1": 0.8674,
+    "precision": 0.888,
+    "recall": 0.8667,
+    "accuracy": 0.8667
   },
   "partial": {
-    "f1": 0.9402,
-    "precision": 0.9411,
-    "recall": 0.94,
-    "accuracy": 0.94
+    "f1": 0.8937,
+    "precision": 0.8954,
+    "recall": 0.8933,
+    "accuracy": 0.8933
   },
   "weak": {
-    "f1": 0.7879,
-    "precision": 0.8071,
-    "recall": 0.7867,
-    "accuracy": 0.7867
-  },
-  "irrelevant": {
-    "f1": 0.7748,
-    "precision": 0.7896,
+    "f1": 0.7746,
+    "precision": 0.7936,
     "recall": 0.7733,
     "accuracy": 0.7733
   },
+  "irrelevant": {
+    "f1": 0.7944,
+    "precision": 0.816,
+    "recall": 0.7933,
+    "accuracy": 0.7933
+  },
   "no_retrieval": {
-    "f1": 0.9534,
-    "precision": 0.9535,
-    "recall": 0.9533,
-    "accuracy": 0.9533
+    "f1": 0.9467,
+    "precision": 0.9467,
+    "recall": 0.9467,
+    "accuracy": 0.9467
   }
 }
