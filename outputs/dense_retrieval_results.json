@@ -1,0 +1,32 @@
+{
+  "no_retrieval": {
+    "f1": 0.9401,
+    "precision": 0.9402,
+    "recall": 0.94,
+    "accuracy": 0.94
+  },
+  "dense_perfect": {
+    "f1": 0.686,
+    "precision": 0.778,
+    "recall": 0.6933,
+    "accuracy": 0.6933
+  },
+  "dense_partial": {
+    "f1": 0.76,
+    "precision": 0.7999,
+    "recall": 0.76,
+    "accuracy": 0.76
+  },
+  "dense_weak": {
+    "f1": 0.7119,
+    "precision": 0.8205,
+    "recall": 0.72,
+    "accuracy": 0.72
+  },
+  "dense_irrelevant": {
+    "f1": 0.6799,
+    "precision": 0.7656,
+    "recall": 0.6867,
+    "accuracy": 0.6867
+  }
+}
