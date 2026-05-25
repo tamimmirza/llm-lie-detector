@@ -1,0 +1,219 @@
+{
+  "exp1": {
+    "no_retrieval": {
+      "f1_mean": 0.949,
+      "f1_std": 0.0031,
+      "acc_mean": 0.9489,
+      "acc_std": 0.0031,
+      "f1_values": [
+        0.9467,
+        0.9468,
+        0.9534
+      ]
+    },
+    "perfect": {
+      "f1_mean": 0.8516,
+      "f1_std": 0.053,
+      "acc_mean": 0.8511,
+      "acc_std": 0.0529,
+      "f1_values": [
+        0.8674,
+        0.9071,
+        0.7802
+      ]
+    },
+    "partial": {
+      "f1_mean": 0.8783,
+      "f1_std": 0.0266,
+      "acc_mean": 0.8778,
+      "acc_std": 0.0268,
+      "f1_values": [
+        0.8937,
+        0.9004,
+        0.8409
+      ]
+    },
+    "weak": {
+      "f1_mean": 0.745,
+      "f1_std": 0.024,
+      "acc_mean": 0.7467,
+      "acc_std": 0.0218,
+      "f1_values": [
+        0.7746,
+        0.7446,
+        0.7158
+      ]
+    },
+    "irrelevant": {
+      "f1_mean": 0.7808,
+      "f1_std": 0.0495,
+      "acc_mean": 0.7822,
+      "acc_std": 0.0469,
+      "f1_values": [
+        0.7944,
+        0.7146,
+        0.8335
+      ]
+    }
+  },
+  "exp2": {
+    "no_retrieval": {
+      "f1_mean": 0.9534,
+      "f1_std": 0.0054,
+      "acc_mean": 0.9533,
+      "acc_std": 0.0054,
+      "f1_values": [
+        0.9467,
+        0.96,
+        0.9534
+      ]
+    },
+    "subtle_contradiction": {
+      "f1_mean": 0.72,
+      "f1_std": 0.0377,
+      "acc_mean": 0.7244,
+      "acc_std": 0.0319,
+      "f1_values": [
+        0.7391,
+        0.7536,
+        0.6673
+      ]
+    },
+    "direct_contradiction": {
+      "f1_mean": 0.6354,
+      "f1_std": 0.0018,
+      "acc_mean": 0.6733,
+      "acc_std": 0.0,
+      "f1_values": [
+        0.6341,
+        0.6379,
+        0.6341
+      ]
+    },
+    "stale_context": {
+      "f1_mean": 0.6478,
+      "f1_std": 0.0236,
+      "acc_mean": 0.6622,
+      "acc_std": 0.0206,
+      "f1_values": [
+        0.6573,
+        0.6708,
+        0.6153
+      ]
+    }
+  },
+  "exp3": {
+    "no_retrieval": {
+      "f1_mean": 0.9467,
+      "f1_std": 0.0,
+      "acc_mean": 0.9467,
+      "acc_std": 0.0,
+      "f1_values": [
+        0.9467,
+        0.9467,
+        0.9467
+      ]
+    },
+    "1_chunk": {
+      "f1_mean": 0.6455,
+      "f1_std": 0.009,
+      "acc_mean": 0.6578,
+      "acc_std": 0.0083,
+      "f1_values": [
+        0.6475,
+        0.6553,
+        0.6336
+      ]
+    },
+    "3_chunk": {
+      "f1_mean": 0.5275,
+      "f1_std": 0.0122,
+      "acc_mean": 0.5778,
+      "acc_std": 0.0083,
+      "f1_values": [
+        0.5404,
+        0.5308,
+        0.5112
+      ]
+    },
+    "5_chunk": {
+      "f1_mean": 0.2769,
+      "f1_std": 0.0,
+      "acc_mean": 0.4333,
+      "acc_std": 0.0,
+      "f1_values": [
+        0.2769,
+        0.2769,
+        0.2769
+      ]
+    },
+    "10_chunk": {
+      "f1_mean": 0.4362,
+      "f1_std": 0.0074,
+      "acc_mean": 0.4667,
+      "acc_std": 0.0054,
+      "f1_values": [
+        0.4271,
+        0.4453,
+        0.4362
+      ]
+    }
+  },
+  "exp4": {
+    "no_retrieval": {
+      "f1_mean": 0.949,
+      "f1_std": 0.0031,
+      "acc_mean": 0.9489,
+      "acc_std": 0.0031,
+      "f1_values": [
+        0.9467,
+        0.9468,
+        0.9534
+      ]
+    },
+    "correct_first": {
+      "f1_mean": 0.7234,
+      "f1_std": 0.0168,
+      "acc_mean": 0.7244,
+      "acc_std": 0.0157,
+      "f1_values": [
+        0.7115,
+        0.7472,
+        0.7115
+      ]
+    },
+    "distractor_first": {
+      "f1_mean": 0.6905,
+      "f1_std": 0.044,
+      "acc_mean": 0.7,
+      "acc_std": 0.0392,
+      "f1_values": [
+        0.6475,
+        0.7509,
+        0.6732
+      ]
+    },
+    "contradiction_last": {
+      "f1_mean": 0.7053,
+      "f1_std": 0.0111,
+      "acc_mean": 0.7067,
+      "acc_std": 0.0109,
+      "f1_values": [
+        0.7072,
+        0.6909,
+        0.7178
+      ]
+    },
+    "contradiction_first": {
+      "f1_mean": 0.6759,
+      "f1_std": 0.0227,
+      "acc_mean": 0.6845,
+      "acc_std": 0.0191,
+      "f1_values": [
+        0.6825,
+        0.6997,
+        0.6454
+      ]
+    }
+  }
+}
