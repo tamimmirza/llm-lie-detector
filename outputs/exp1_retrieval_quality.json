@@ -28,5 +28,11 @@
     "precision": 0.9467,
     "recall": 0.9467,
     "accuracy": 0.9467
+  },
+  "oracle": {
+    "f1": 0.8835,
+    "precision": 0.9003,
+    "recall": 0.8867,
+    "accuracy": 0.8867
   }
 }
