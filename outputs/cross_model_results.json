@@ -1,0 +1,47 @@
+{
+  "Llama-3.2-3B-Instruct": {
+    "f1": 0.4717,
+    "precision": 0.5807,
+    "recall": 0.5867,
+    "accuracy": 0.5867,
+    "hallucination_rate": 0.9533,
+    "avg_answer_length": 12.9,
+    "family_type": "in_family"
+  },
+  "Qwen2-1.5B-Instruct": {
+    "f1": 0.4518,
+    "precision": 0.6193,
+    "recall": 0.5867,
+    "accuracy": 0.5867,
+    "hallucination_rate": 0.98,
+    "avg_answer_length": 14.0,
+    "family_type": "cross_family"
+  },
+  "SmolLM2-1.7B-Instruct": {
+    "f1": 0.4887,
+    "precision": 0.6448,
+    "recall": 0.6,
+    "accuracy": 0.6,
+    "hallucination_rate": 0.9533,
+    "avg_answer_length": 13.0,
+    "family_type": "cross_family"
+  },
+  "gemma-2b-it": {
+    "f1": 0.4483,
+    "precision": 0.5477,
+    "recall": 0.58,
+    "accuracy": 0.58,
+    "hallucination_rate": 0.9733,
+    "avg_answer_length": 15.0,
+    "family_type": "cross_family"
+  },
+  "Mistral-7B-Instruct-v0.3": {
+    "f1": 0.4678,
+    "precision": 0.549,
+    "recall": 0.58,
+    "accuracy": 0.58,
+    "hallucination_rate": 0.9467,
+    "avg_answer_length": 14.5,
+    "family_type": "cross_family"
+  }
+}
