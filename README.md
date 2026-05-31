@@ -12,14 +12,14 @@ Given a question and an LLM-generated answer, the system predicts whether the an
 
 ## Key Numbers
 
-| Metric    | Score  |
-|-----------|--------|
-| F1 Score  | 0.9234 |
-| Accuracy  | 92.34% |
-| ROC AUC   | 0.9637 |
-| Latency   | 210ms  |
-| Throughput| 4.75 samples/sec |
-| VRAM      | 6.45 GB |
+| Metric     | Score            |
+|------------|------------------|
+| F1 Score   | 0.9234           |
+| Accuracy   | 92.34%           |
+| ROC AUC    | 0.9637           |
+| Latency    | 210ms            |
+| Throughput | 4.75 samples/sec |
+| VRAM       | 6.45 GB          |
 
 ## Model
 
@@ -79,22 +79,22 @@ Response:
 
 The system supports a confidence-aware three-class mode for production deployment:
 
-| Zone | Confidence | Action |
-|------|-----------|--------|
-| High HALLUCINATED | > 0.85 | Auto-flag |
-| UNCERTAIN | 0.15 - 0.85 | Human review |
-| High TRUTHFUL | < 0.15 | Auto-pass |
+| Zone              | Confidence  | Action       |
+|-------------------|-------------|--------------|
+| High HALLUCINATED | > 0.85      | Auto-flag    |
+| UNCERTAIN         | 0.15 - 0.85 | Human review |
+| High TRUTHFUL     | < 0.15      | Auto-pass    |
 
 Accuracy on confident predictions: **93.5%** with 23.5% abstention rate.
 
 ## Hardware Requirements
 
-| Component | Requirement |
-|-----------|-------------|
-| VRAM (minimum) | 8 GB |
-| VRAM (used) | 6.45 GB |
-| GPU inference latency | ~210ms |
-| CPU inference | Supported (slower) |
+| Component             | Requirement        |
+|-----------------------|--------------------|
+| VRAM (minimum)        | 8 GB               |
+| VRAM (used)           | 6.45 GB            |
+| GPU inference latency | ~210ms             |
+| CPU inference         | Supported (slower) |
 
 ## Reproducibility
 
@@ -121,6 +121,12 @@ on a single RTX 4080 Laptop GPU using bfloat16 precision.
 Key issue resolved during development: the standard HuggingFace Trainer had
 compatibility issues with LoRA adapters in this library stack. SFTTrainer
 handles LoRA internally and resolved all training instability.
+
+## Ongoing Investigation
+
+As an extension of this project, we are investigating whether retrieval
+augmentation improves fine-tuned hallucination detection. Early results
+suggest retrieval may not always help -- full findings pending.
 
 ## Project Status
 
